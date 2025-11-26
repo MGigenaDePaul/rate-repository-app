@@ -4,9 +4,8 @@ const theme = {
     textSecondary: '#586069',
     primary: '#0366d6',
     whiteText: '#ffff',
-  },
-  backgroundColors: {
-    appBar: '#24292e'
+    backgroundAppBar: '#24292e',
+    mainBackground: '#e1e4e8',
   },
   fontSizes: {
     heading: 18,
