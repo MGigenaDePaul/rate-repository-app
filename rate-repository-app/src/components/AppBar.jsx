@@ -8,9 +8,10 @@ const styles = StyleSheet.create({
     backgroundColor: theme.backgroundColors.appBar,
   }, 
   tabText: {
-    color: theme.colors.textPrimary,
+    color: theme.colors.whiteText,
     fontSize: theme.fontSizes.subheading,
     paddingHorizontal: 10,
+    marginBottom: 15
   }
 });
 
