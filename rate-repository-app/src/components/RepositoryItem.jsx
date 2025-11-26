@@ -1,5 +1,6 @@
-import { View, Text, Image, StyleSheet} from 'react-native';
+import { View, Image, StyleSheet} from 'react-native';
 import theme from '../theme';
+import Text from './Text';
 
 const formatCount = (count) => {
   if (count >= 1000) {
@@ -22,23 +23,6 @@ const RepositoryItem = ({ item }) => {
       marginRight: 15,
       marginLeft: 10
     },
-    fullName: {
-      fontSize: theme.fontSizes.heading,
-      fontWeight: theme.fontWeights.bold,
-      marginBottom: 5,
-    },
-    description: {
-      fontSize: theme.fontSizes.subheading,
-      color: theme.colors.textSecondary,
-      marginBottom: 5,
-    },
-    language: {
-      alignSelf: 'flex-start',
-      backgroundColor: theme.colors.primary,
-      color: theme.colors.textPrimary,
-      padding: 10,
-      borderRadius: 5,
-    },
     topSection: {
       flexDirection: 'row',
       marginBottom: 15,
@@ -51,41 +35,33 @@ const RepositoryItem = ({ item }) => {
     statItem: {
       alignItems: 'center',
     },
-    statNumber: {
-      fontWeight: theme.fontWeights.bold,
-      fontSize: theme.fontSizes.subheading,
-    },
-    statText: {
-      color: theme.colors.textSecondary,
-      fontSize: theme.fontSizes.subheading,
-    }
   })
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
         <Image style={styles.avatar} source={{uri: item.ownerAvatarUrl}} />
         <View>
-          <Text style={styles.fullName}>{item.fullName}</Text>
-          <Text style={styles.description}>{item.description}</Text>
-          <Text style={styles.language}>{item.language}</Text>
+          <Text fontWeight='bold' fontSize='heading'>{item.fullName}</Text>
+          <Text fontSize='subheading'>{item.description}</Text>
+          <Text color='white'>{item.language}</Text>
         </View>
       </View>
       <View style={styles.bottomSection}>
         <View style={styles.statItem}>
-          <Text style={styles.statNumber}>{formatCount(item.stargazersCount)}</Text>
+          <Text color='textPrimary' fontWeight='bold'>{formatCount(item.stargazersCount)}</Text>
           <Text style={styles.statText}>Stars</Text>
         </View>
         <View style={styles.statItem}>
-          <Text style={styles.statNumber}>{formatCount(item.forksCount)}</Text>
-          <Text style={styles.statText}>Forks</Text>
+          <Text color='textPrimary' fontWeight='bold'>{formatCount(item.forksCount)}</Text>
+          <Text color='textSecondary'>Forks</Text>
         </View>
         <View style={styles.statItem}>        
-          <Text style={styles.statNumber}>{item.reviewCount}</Text>
-          <Text style={styles.statText}>Reviews</Text>
+          <Text color='textPrimary' fontWeight='bold'>{item.reviewCount}</Text>
+          <Text color='textSecondary'>Reviews</Text>
         </View>
         <View style={styles.statItem}>
-          <Text style={styles.statNumber}>{item.ratingAverage}</Text>
-          <Text style={styles.statText}>Rating</Text>
+          <Text color='textPrimary' fontWeight='bold'>{item.ratingAverage}</Text>
+          <Text color='textSecondary'>Rating</Text>
         </View>
       </View>
     </View>
