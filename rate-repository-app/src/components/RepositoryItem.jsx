@@ -1,5 +1,4 @@
 import { View, Image, StyleSheet} from 'react-native';
-import theme from '../theme';
 import Text from './Text';
 
 const formatCount = (count) => {
@@ -21,16 +20,19 @@ const RepositoryItem = ({ item }) => {
       height: 50, 
       borderRadius: 5,
       marginRight: 15,
-      marginLeft: 10
+      marginLeft: 10,
+      marginTop: 5,
     },
     topSection: {
       flexDirection: 'row',
       marginBottom: 15,
-      maxWidth: '80%'
+      maxWidth: '80%',
+      marginTop: 8
     },
     bottomSection: {
       flexDirection: 'row',
-      justifyContent: 'space-around'
+      justifyContent: 'space-evenly',
+      marginBottom: 8
     },
     statItem: {
       alignItems: 'center',

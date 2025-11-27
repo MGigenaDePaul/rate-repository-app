@@ -24,15 +24,23 @@ const styles = StyleSheet.create({
   },
   fontSizeHeading: {
     fontSize: theme.fontSizes.heading,
-    marginBottom: 5
+    marginBottom: 12
   },
   fontSizeSubheading: {
     fontSize: theme.fontSizes.subheading,
-    marginBottom: 5
+    marginBottom: 10
   },
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
   },
+  signInButton: {
+    color: theme.colors.whiteText,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 5,
+    padding: 5,
+    textAlign: 'center', 
+    width: '80%',
+  }
 });
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
@@ -41,6 +49,7 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
     color === 'textSecondary' && styles.colorTextSecondary,
     color === 'primary' && styles.colorPrimary,
     color === 'white' && styles.itemLanguage,
+    color === 'styleSignIn' && styles.signInButton,
     fontSize === 'heading'  && styles.fontSizeHeading,
     fontSize === 'subheading' && styles.fontSizeSubheading,
     fontWeight === 'bold' && styles.fontWeightBold,

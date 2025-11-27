@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     color: theme.colors.whiteText,
     fontSize: theme.fontSizes.subheading,
     paddingHorizontal: 10,
-    marginBottom: 15
+    marginBottom: 15,
+    fontWeight: theme.fontWeights.bold
   },
   scroll: {
     flexDirection: 'row',
