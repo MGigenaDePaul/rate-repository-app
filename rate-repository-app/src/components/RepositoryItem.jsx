@@ -12,7 +12,6 @@ const RepositoryItem = ({ item }) => {
   const styles = StyleSheet.create({
     container: {
       flexDirection: 'column',
-      marginTop: 7,
       backgroundColor: '#ffff',
     },
     avatar: {
