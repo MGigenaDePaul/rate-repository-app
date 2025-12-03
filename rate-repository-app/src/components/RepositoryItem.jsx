@@ -38,12 +38,12 @@ const RepositoryItem = ({ item }) => {
     },
   })
   return (
-    <View style={styles.container}>
+    <View testID="repositoryItem" style={styles.container}>
       <View style={styles.topSection}>
         <Image style={styles.avatar} source={{uri: item.ownerAvatarUrl}} />
         <View>
           <Text fontWeight='bold' fontSize='heading'>{item.fullName}</Text>
-          <Text fontSize='subheading'>{item.description}</Text>
+          <Text fontSize='subheading'>{item.description}{'\n'}</Text>
           <Text color='white'>{item.language}</Text>
         </View>
       </View>
