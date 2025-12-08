@@ -1,22 +1,71 @@
-import * as Linking from 'expo-linking';
-import { Pressable, View, StyleSheet } from 'react-native';
+import { Pressable, View, StyleSheet, FlatList } from 'react-native';
 import { GET_REPOSITORY } from '../graphql/queries';
 import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 import Text from './Text';
-import RepositoryItem from './RepositoryItem';
+import RepositoryInfo from './RepositoryInfo';
+import { format } from 'date-fns';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
-    openButton: {
-        color: theme.colors.whiteText,
-        backgroundColor: theme.colors.primary,
-        borderRadius: 5,
-        padding: 5,
-        textAlign: 'center', 
-        width: '100%',
+    separator: {
+        height: 10,
+    },
+    reviewContainer: {
+        flexDirection: 'row',
+        backgroundColor: theme.colors.whiteText,
+        marginTop: 5,
+        padding: 10,
+    },
+    ratingContainer: {
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 10,
+        color: theme.colors.textPrimary,
+        borderColor: theme.colors.primary,
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        borderWidth: 2,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    rating: {
+        color: theme.colors.primary,
+        fontWeight: theme.fontWeights.bold,
+        fontSize: theme.fontSizes.subheading,
+    }, 
+    reviewUserContainer: {
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 10,
+        flex: 1,
+        flexShrink: 1,
+    },
+    textReview: {
+        flexWrap: 'wrap',
     }
 })
+
+const ItemSeparator = () => <View style={styles.separator} />;
+
+
+const ReviewItem = ({review}) => {
+    const formattedDate = format(new Date(review.createdAt), 'dd.MM.yyyy');
+    return (
+        <View style={styles.reviewContainer}>
+            <View style={styles.ratingContainer}>
+                <Text style={styles.rating}>{review.rating}</Text>
+            </View>
+            <View style={styles.reviewUserContainer}>
+                <Text fontWeight='bold' fontSize='subheading'>{review.user.username}</Text>
+                <Text>{formattedDate}</Text>
+                <Text style={styles.textReview}>{review.text}</Text>
+            </View>
+        </View>
+    )
+}
 
 const SingleRepository = () => {
    const {id} = useParams();
@@ -35,14 +84,20 @@ const SingleRepository = () => {
    }
 
    const repository = data?.repository;
+   const reviewNodes = repository?.reviews 
+    ? repository.reviews.edges.map(edge => edge.node)
+    : [];
+
+   console.log('reviews data', reviewNodes);
 
    return (
-    <View>
-        <RepositoryItem item={repository}/>
-        <Pressable onPress={() => Linking.openURL(repository.url)}>
-            <Text style={styles.openButton}>Open in GitHub</Text>
-        </Pressable>
-    </View>
+    <FlatList
+      data={reviewNodes}
+      renderItem={({ item }) => <ReviewItem review={item} />}
+      keyExtractor={({ id }) => id}
+      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+      ItemSeparatorComponent={ItemSeparator}
+    />
    )
 }
 

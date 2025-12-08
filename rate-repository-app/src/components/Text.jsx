@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     padding: 5,
     textAlign: 'center', 
     width: '80%',
-  }
+  },
 });
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
