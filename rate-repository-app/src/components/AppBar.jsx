@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flexDirection: 'row',
+  },
+  containerCreateReview: {
+    flexDirection: 'row',
   }
 });
 
@@ -43,12 +46,16 @@ const AppBar = () => {
           <Link to='/'>
               <Text style={styles.tabText}>Repositories</Text>
           </Link>
-          
           {(data && data.me) ? (
-            <Pressable onPress={handleSignOut}>
-              <Text style={styles.tabText}>Sign Out</Text>
-            </Pressable>
-            )
+            <View style={styles.containerCreateReview}>
+              <Link to='/createReview'>
+                <Text style={styles.tabText}>Create a review</Text>
+              </Link>
+              <Pressable onPress={handleSignOut}>
+                <Text style={styles.tabText}>Sign Out</Text>
+              </Pressable>
+            </View>
+          )
           : <Link to='/signIn'>
               <Text style={styles.tabText}>Sign In</Text>
             </Link>}

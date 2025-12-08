@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
     },
     textReview: {
         flexWrap: 'wrap',
+    },
+    date: {
+        marginBottom: 5,
     }
 })
 
@@ -60,7 +63,7 @@ const ReviewItem = ({review}) => {
             </View>
             <View style={styles.reviewUserContainer}>
                 <Text fontWeight='bold' fontSize='subheading'>{review.user.username}</Text>
-                <Text>{formattedDate}</Text>
+                <Text color='textSecondary' style={styles.date}>{formattedDate}</Text>
                 <Text style={styles.textReview}>{review.text}</Text>
             </View>
         </View>
@@ -70,6 +73,7 @@ const ReviewItem = ({review}) => {
 const SingleRepository = () => {
    const {id} = useParams();
    const {data, loading, error} = useQuery(GET_REPOSITORY, {
+    fetchPolicy: 'cache-and-network',
     variables: { repositoryId: id}
    })
 
