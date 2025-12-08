@@ -1,5 +1,7 @@
 import 'dotenv/config';
 
+// console.log('ENV APOLLO_URI:', process.env.APOLLO_URI);
+
 export default {
     "name": "rate-repository-app",
     "slug": "rate-repository-app",
@@ -28,6 +30,6 @@ export default {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      apolloUri: process.env.APOLLO_URI,
+      apolloUri: process.env.APOLLO_URI
     }
 }
