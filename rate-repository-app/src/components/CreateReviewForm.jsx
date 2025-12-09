@@ -64,7 +64,6 @@ const validationSchema = yup.object().shape({
 });
 
 const CreateReviewForm = ({onSubmit}) => {
-    console.log('onSubmit prop:', onSubmit);  // ← Agrega esto
     const formik = useFormik({
         initialValues,
         validationSchema,

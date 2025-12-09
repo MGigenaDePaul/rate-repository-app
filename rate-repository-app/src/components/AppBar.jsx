@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
   },
   containerCreateReview: {
     flexDirection: 'row',
+  },
+  containerViewSignInSignUp: {
+    flexDirection: 'row',
   }
 });
 
@@ -56,9 +59,15 @@ const AppBar = () => {
               </Pressable>
             </View>
           )
-          : <Link to='/signIn'>
-              <Text style={styles.tabText}>Sign In</Text>
-            </Link>}
+          : <View style={styles.containerViewSignInSignUp}>
+              <Link to='/signIn'>
+                <Text style={styles.tabText}>Sign In</Text>
+              </Link>
+              <Link to='/signUp'>
+                <Text style={styles.tabText}>Sign up</Text>
+              </Link>
+            </View>
+          }
         </View>
       </ScrollView>
     </View>

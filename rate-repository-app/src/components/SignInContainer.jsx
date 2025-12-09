@@ -89,7 +89,7 @@ const SignInContainer = ({onSubmit}) => {
             <Text style={styles.errorText}>{formik.errors.password}</Text>
         )}
         <Pressable onPress={formik.handleSubmit} style={styles.press}>
-            <Text color='styleSignIn'>Sign in</Text>
+            <Text color='styleSign'>Sign in</Text>
         </Pressable>
         </View>
     )

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
   },
-  signInButton: {
+  signButton: {
     color: theme.colors.whiteText,
     backgroundColor: theme.colors.primary,
     borderRadius: 5,
@@ -49,7 +49,7 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
     color === 'textSecondary' && styles.colorTextSecondary,
     color === 'primary' && styles.colorPrimary,
     color === 'white' && styles.itemLanguage,
-    color === 'styleSignIn' && styles.signInButton,
+    color === 'styleSign' && styles.signButton,
     fontSize === 'heading'  && styles.fontSizeHeading,
     fontSize === 'subheading' && styles.fontSizeSubheading,
     fontWeight === 'bold' && styles.fontWeightBold,
