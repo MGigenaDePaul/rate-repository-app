@@ -119,7 +119,7 @@ const CreateReviewForm = ({onSubmit}) => {
             style={styles.input}
         />
         <Pressable onPress={formik.handleSubmit} style={styles.press}>
-            <Text color='styleSignIn'>Create Review</Text>
+            <Text color='styleSign'>Create Review</Text>
         </Pressable>
         </View>
     )

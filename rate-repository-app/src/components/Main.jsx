@@ -4,10 +4,10 @@ import { Route, Routes, Navigate } from 'react-router-native';
 
 import theme from '../theme';
 import AppBar from './AppBar';
-import SignIn from './SignIn';
+import SignIn from './sign/SignIn';
 import SingleRepository from './SingleRepository';
 import CreateReview from './CreateReview';
-import SignUp from './SignUp';
+import SignUp from './sign/SignUp';
 
 const styles = StyleSheet.create({
   container: {

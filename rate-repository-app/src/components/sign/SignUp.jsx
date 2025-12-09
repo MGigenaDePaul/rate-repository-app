@@ -1,9 +1,8 @@
 import SignUpContainer from './SignUpContainer';
-import useSignIn from '../hooks/useSignIn';
+import useSignIn from '../../hooks/useSignIn';
 import { useNavigate } from 'react-router-native';
 import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../graphql/mutations';
-import SignIn from './SignIn';
+import { CREATE_USER } from '../../graphql/mutations';
 
 const SignUp = () => {
   const [createUser] = useMutation(CREATE_USER);
