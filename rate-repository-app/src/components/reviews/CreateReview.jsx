@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-native';
-import { CREATE_REVIEW } from '../graphql/mutations';
+import { CREATE_REVIEW } from '../../graphql/mutations';
 import CreateReviewForm from './CreateReviewForm';
 
 const CreateReview = () => {

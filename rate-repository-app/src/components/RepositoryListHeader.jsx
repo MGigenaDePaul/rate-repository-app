@@ -2,7 +2,6 @@ import { Menu, Divider, Searchbar } from 'react-native-paper';
 import { useState } from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import Text from './Text';
-import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
