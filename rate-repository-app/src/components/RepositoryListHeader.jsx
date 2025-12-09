@@ -1,12 +1,16 @@
-import { Menu, Divider } from 'react-native-paper';
+import { Menu, Divider, Searchbar } from 'react-native-paper';
 import { useState } from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import Text from './Text';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
     padding: 15,
     backgroundColor: 'white',
+  },
+  searchbar: {
+    marginBottom: 10,
   },
   menuButton: {
     padding: 10,
@@ -16,7 +20,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const RepositoryListHeader = ({ selectedOrder, setSelectedOrder }) => {
+const RepositoryListHeader = ({ 
+    selectedOrder, 
+    setSelectedOrder, 
+    searchQuery, 
+    setSearchQuery 
+}) => {
   const [visible, setVisible] = useState(false);
 
   const openMenu = () => setVisible(true);
@@ -35,6 +44,12 @@ const RepositoryListHeader = ({ selectedOrder, setSelectedOrder }) => {
 
   return (
     <View style={styles.container}>
+      <Searchbar 
+        placeholder='Search' 
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+        style={styles.searchbar}
+       />
       <Menu
         visible={visible}
         onDismiss={closeMenu}

@@ -3,7 +3,9 @@ import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 import { useNavigate } from 'react-router-native';
 import { useState } from 'react';
+import { useDebounce } from 'use-debounce'; 
 import RepositoryListHeader from './RepositoryListHeader';
+import React from 'react';
 
 const styles = StyleSheet.create({
   separator: {
@@ -13,24 +15,32 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
+export class RepositoryListContainer extends React.Component {
+  renderHeader = () => {
+    const { selectedOrder, setSelectedOrder, searchQuery, setSearchQuery } = this.props;
 
-export const RepositoryListContainer = ({ repositories, selectedOrder, setSelectedOrder }) => {
-  const navigate = useNavigate();
-  const repositoryNodes = repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
+    return (
+      <RepositoryListHeader 
+        selectedOrder={selectedOrder}
+        setSelectedOrder={setSelectedOrder}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+    );
+  };
 
-    console.log("NODES:", repositoryNodes);
+  render() {
+    const { repositories, navigate } = this.props;
+    
+    const repositoryNodes = repositories
+      ? repositories.edges.map((edge) => edge.node)
+      : [];
+
     return (
       <FlatList
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
-        ListHeaderComponent={
-          <RepositoryListHeader 
-            selectedOrder={selectedOrder}
-            setSelectedOrder={setSelectedOrder}
-          />
-        }
+        ListHeaderComponent={this.renderHeader}
         renderItem={({ item }) => (
           <Pressable onPress={() => navigate(`/repository/${item.id}`)}>
             <RepositoryItem item={item} />
@@ -39,11 +49,15 @@ export const RepositoryListContainer = ({ repositories, selectedOrder, setSelect
         keyExtractor={(item) => item.id}
       />
     );
+  }
 }
 
 const RepositoryList = () => {
+  const navigate = useNavigate();
   const [selectedOrder, setSelectedOrder] = useState('latest');
-  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
+
   const getOrderVariables = () => {
     switch(selectedOrder){
       case 'highest':
@@ -56,13 +70,21 @@ const RepositoryList = () => {
     }
   };
 
-  const { repositories } = useRepositories(getOrderVariables());
+  const variables = {
+    ...getOrderVariables(),
+    searchKeyword: debouncedSearchQuery || undefined,
+  }
+
+  const { repositories } = useRepositories(variables);
 
   return (
     <RepositoryListContainer 
       repositories={repositories} 
       selectedOrder={selectedOrder}
       setSelectedOrder={setSelectedOrder}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      navigate={navigate}
     />
   );
 };
