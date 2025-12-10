@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { GET_CURRENT_USER } from '../../graphql/queries';
 import ReviewItem from './ReviewItem';
 import Text from '../Text';
+import useDeleteReview from '../../hooks/useDeleteReview';
 
 const styles = StyleSheet.create({
   separator: {
@@ -17,11 +18,21 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const MyReviews = () => {
-  const { data, loading } = useQuery(GET_CURRENT_USER, {
+  const [deleteReview] = useDeleteReview();
+  const { data, loading, refetch } = useQuery(GET_CURRENT_USER, {
     variables: { includeReviews: true }, 
     fetchPolicy: 'cache-and-network',
   });
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteReview(id);
+      console.log('Delete result:', result); 
+      refetch();
+    } catch (e) {
+      console.log('ERROR deleting review', e)
+    }
+  }
   console.log('data my reviews', data);
 
   if (loading) {
@@ -35,7 +46,12 @@ const MyReviews = () => {
   return (
     <FlatList
       data={reviews}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => (
+        <ReviewItem 
+            review={item} 
+            onDelete={handleDelete}
+        />)
+      }
       keyExtractor={({ id }) => id}
       ItemSeparatorComponent={ItemSeparator}
     />

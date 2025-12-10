@@ -73,7 +73,7 @@ const SignUpContainer = ({onSubmit}) => {
             <TextInput 
                 placeholder='Username'
                 value={formik.values.username}
-                onChange={formik.handleChange('username')}
+                onChangeText={formik.handleChange('username')}
                 style={[
                     styles.input,
                     formik.touched.username && formik.errors.username && styles.inputError
@@ -85,7 +85,7 @@ const SignUpContainer = ({onSubmit}) => {
             <TextInput 
                 placeholder='Password'
                 value={formik.values.password}
-                onChange={formik.handleChange('password')}
+                onChangeText={formik.handleChange('password')}
                 style={[
                     styles.input,
                     formik.touched.password && formik.errors.password && styles.inputError
@@ -98,7 +98,7 @@ const SignUpContainer = ({onSubmit}) => {
             <TextInput 
                 placeholder='Password confirmation'
                 value={formik.values.passwordConfirmation}
-                onChange={formik.handleChange('passwordConfirmation')}
+                onChangeText={formik.handleChange('passwordConfirmation')}
                 style={[
                     styles.input,
                     formik.touched.passwordConfirmation && formik.errors.passwordConfirmation && styles.inputError
