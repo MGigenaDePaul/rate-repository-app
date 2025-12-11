@@ -21,7 +21,7 @@ const useRepositories = (variables={}) => {
       },
     });
   };
-  console.log("GET_REPOSITORIES", data);
+
   return { 
     repositories: data ? data.repositories : undefined,
     loading, 

@@ -14,7 +14,6 @@ const useDeleteReview = () => {
             const { data } = await mutate({
                 variables: { deleteReviewId: id }
             });
-            console.log('useDeleteReview: Success!', data);
             return data;
         } catch (error) {
             console.error('Mutation error:', error);

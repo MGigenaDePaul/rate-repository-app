@@ -30,7 +30,7 @@ Create a `.env` file in the `rate-repository-app` root directory:
 # For Android Emulator
 APOLLO_URI=http://10.0.2.2:4000/graphql
 
-# For Browser (uncomment this and comment the line above)
+# For Browser
 # APOLLO_URI=http://127.0.0.1:4000/graphql
 ```
 
