@@ -30,7 +30,7 @@ export class RepositoryListContainer extends React.Component {
   };
 
   render() {
-    const { repositories, navigate } = this.props;
+    const { repositories, navigate, onEndReach } = this.props;
     
     const repositoryNodes = repositories
       ? repositories.edges.map((edge) => edge.node)
@@ -47,6 +47,8 @@ export class RepositoryListContainer extends React.Component {
           </Pressable>
         )}
         keyExtractor={(item) => item.id}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }
@@ -75,11 +77,20 @@ const RepositoryList = () => {
     searchKeyword: debouncedSearchQuery || undefined,
   }
 
-  const { repositories } = useRepositories(variables);
+  const { repositories, fetchMore } = useRepositories({
+    first: 3,
+    ...variables
+  });
+
+  const onEndReach = () => {
+    fetchMore();
+    console.log('You have reached the end of the list');
+  };
 
   return (
     <RepositoryListContainer 
       repositories={repositories} 
+      onEndReach={onEndReach}
       selectedOrder={selectedOrder}
       setSelectedOrder={setSelectedOrder}
       searchQuery={searchQuery}

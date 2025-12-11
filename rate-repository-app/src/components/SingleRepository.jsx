@@ -1,4 +1,4 @@
-import { Pressable, View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { GET_REPOSITORY } from '../graphql/queries';
 import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
@@ -6,6 +6,7 @@ import Text from './Text';
 import RepositoryInfo from './RepositoryInfo';
 import { format } from 'date-fns';
 import theme from '../theme';
+import useRepository from '../hooks/useRepository';
 
 const styles = StyleSheet.create({
     separator: {
@@ -70,37 +71,44 @@ const ReviewItem = ({review}) => {
     )
 }
 
-const SingleRepository = () => {
-   const {id} = useParams();
-   const {data, loading, error} = useQuery(GET_REPOSITORY, {
-    fetchPolicy: 'cache-and-network',
-    variables: { repositoryId: id}
-   })
-
-   if (loading) {
-    return <Text>Loading ...</Text>
-   }
-   if (error) {
-    return <Text>Error: {error.message}</Text>
-   }
-   if (data) {
-    console.log('data single repo', data);
-   }
-
-   const repository = data?.repository;
-   const reviewNodes = repository?.reviews 
+export const SingleRepositoryContainer = ({repository, onEndReach}) => {
+    const reviewNodes = repository?.reviews 
     ? repository.reviews.edges.map(edge => edge.node)
     : [];
 
-   console.log('reviews data', reviewNodes);
+    console.log('reviews data', reviewNodes);
+
+    return (
+        <FlatList
+        data={reviewNodes}
+        renderItem={({ item }) => <ReviewItem review={item} />}
+        keyExtractor={({ id }) => id}
+        ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+        ItemSeparatorComponent={ItemSeparator}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
+        />
+    )
+}
+
+const SingleRepository = () => {
+   const {id} = useParams();
+   const {repository, fetchMore} = useRepository(id)
+
+   if (!repository) {
+    console.log('no repository yet');
+    return null;
+   }
+
+   const onEndReach = () => {
+        console.log('End reached, fetching more');
+        fetchMore();
+   }
 
    return (
-    <FlatList
-      data={reviewNodes}
-      renderItem={({ item }) => <ReviewItem review={item} />}
-      keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
-      ItemSeparatorComponent={ItemSeparator}
+    <SingleRepositoryContainer 
+        repository={repository} 
+        onEndReach={onEndReach}
     />
    )
 }
